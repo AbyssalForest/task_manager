@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "taskId": "1",
+      "title": "Nakonfigurovat lokální backend",
+      "description": "Použít Express.js a TypeScript",
+      "isCompleted": true
+    },
+    {
+      "taskId": "2",
+      "title": "Propojit s React frontendem",
+      "description": "Nezapomenout na CORS",
+      "isCompleted": true
+    },
+    {
+      "taskId": "58d55d22-cf78-4f41-94e7-f5ff97f3f853",
+      "title": "delete task",
+      "description": "",
+      "isCompleted": true
+    },
+    {
+      "taskId": "f74153a8-ff89-44cd-99e4-b86da1550ec7",
+      "title": "edit stav",
+      "description": "",
+      "isCompleted": true
+    }
+  ]
+}
