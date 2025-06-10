@@ -23,6 +23,12 @@
       "title": "edit stav",
       "description": "",
       "isCompleted": true
+    },
+    {
+      "taskId": "89ba2317-145b-48b5-b6a3-4fe1642c7bc2",
+      "title": "zlepseni struktury backendu",
+      "description": "",
+      "isCompleted": true
     }
   ]
 }
