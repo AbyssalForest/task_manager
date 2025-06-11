@@ -47,7 +47,7 @@ const deleteTask = async (taskId: string): Promise<void> => {
   await writeDb(db);
 };
 
-const editTask = async (updatedTask: Task): Promise<void> => {
+const editTask = async (updatedTask: Task): Promise<Task> => {
   if (!updatedTask) {
     throw new Error("UpdatedTask is required");
   }
@@ -59,6 +59,7 @@ const editTask = async (updatedTask: Task): Promise<void> => {
     db.tasks[taskIndex] = updatedTask;
   }
   await writeDb(db);
+  return db.tasks[taskIndex];
 };
 
 export const taskService = {

@@ -30,9 +30,9 @@ const deleteTask = async (req: Request, res: Response) => {
 
     await taskService.deleteTask(taskId);
 
-    res.json({ message: "Úkol úspěšně smazán." });
+    res.status(200).json({ message: "Úkol úspěšně smazán." });
   } catch (error) {
-    res.json({ message: "Chyba při mazání úkolu.", error });
+    res.status(500).json({ message: "Chyba při mazání úkolu.", error });
   }
 };
 
@@ -46,15 +46,15 @@ const editTask = async (req: Request, res: Response) => {
       !updatedTask.title ||
       typeof updatedTask.isCompleted !== "boolean"
     ) {
-      res.json({
+      res.status(400).json({
         message: "Neplatný objekt updatedTask. Zkontrolujte požadovaná pole.",
       });
       return;
     }
 
-    await taskService.editTask(updatedTask);
+    const editedTask = await taskService.editTask(updatedTask);
 
-    res.json({ message: `Úkol s id: ${updatedTask?.taskId} aktualizován.` });
+    res.status(200).json(editedTask);
   } catch (error) {
     res.json({ message: "Chyba při ukládání úkolu.", error });
   }
