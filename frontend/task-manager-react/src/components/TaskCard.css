@@ -1,0 +1,163 @@
+.task-card {
+  background-color: #282c34;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  color: #f1f1f1;
+}
+
+.task-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.task-card.completed {
+  border-left: 5px solid #61dafb;
+  opacity: 0.7;
+}
+
+.task-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #444;
+  padding-bottom: 8px;
+}
+
+.task-card__title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  word-break: break-word;
+}
+
+.task-card__status {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.task-card__status.completed {
+  background-color: #61dafb;
+  color: #282c34;
+}
+
+.task-card__status.pending {
+  background-color: #444;
+  color: #f1f1f1;
+}
+
+/*Skrolování*/
+.task-card__description {
+  flex-grow: 1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #ccc;
+
+  max-height: 120px;
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: #61dafb #282c34;
+}
+
+.task-card__description::-webkit-scrollbar {
+  width: 8px;
+}
+
+.task-card__description::-webkit-scrollbar-track {
+  background: #282c34;
+}
+
+.task-card__description::-webkit-scrollbar-thumb {
+  background-color: #61dafb;
+  border-radius: 10px;
+  border: 2px solid #282c34;
+}
+
+.task-card__footer {
+  font-size: 0.75rem;
+  color: #888;
+  text-align: right;
+  padding-top: 8px;
+}
+
+.task-card__description {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-card__description p {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.task-card__edit-mode {
+  width: 100%;
+}
+
+.task-card__textarea {
+  width: 100%;
+  min-height: 120px;
+  background-color: #1e2128;
+  color: #f1f1f1;
+  border: 1px solid #61dafb;
+  border-radius: 4px;
+  padding: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.task-card__edit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.button-edit,
+.button-save,
+.button-cancel {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.button-edit {
+  background-color: transparent;
+  color: #61dafb;
+  border: 1px solid #61dafb;
+  align-self: flex-start;
+  margin-top: 10px;
+}
+
+.button-edit:hover {
+  background-color: rgba(97, 218, 251, 0.1);
+}
+
+.button-save {
+  background-color: #61dafb;
+  color: #282c34;
+}
+.button-save:hover {
+  background-color: #82e2ff;
+}
+
+.button-cancel {
+  background-color: #444;
+  color: #f1f1f1;
+}
+.button-cancel:hover {
+  background-color: #555;
+}

@@ -40,3 +40,16 @@
 .read-the-docs {
   color: #888;
 }
+
+.tasks-grid {
+  display: grid;
+  /* Vytvoří sloupce o minimální šířce 320px. 
+     'auto-fill' zajistí, že se jich na řádek vejde co nejvíce.
+     '1fr' znamená, že si spravedlivě rozdělí zbývající místo. */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px; /* Mezery mezi kartami */
+  padding: 20px;
+  width: 100%;
+  max-width: 1600px; /* Maximální šířka kontejneru */
+  margin: 0 auto; /* Vycentrování na stránce */
+}

@@ -1,8 +1,11 @@
+// frontend/src/App.tsx
+
 import React, { useState, useEffect, FormEvent } from "react";
 import axios from "axios";
 import "./App.css";
+import TaskCard from "./components/TaskCard";
 
-const API_URL = "http://localhost:8000/api/tasks";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
 
 interface Task {
   taskId: string;
@@ -38,9 +41,11 @@ function App() {
   const handleAddTask = async (e: FormEvent) => {
     e.preventDefault();
     if (!newTaskTitle.trim()) return;
-
     try {
-      const response = await axios.post(API_URL, { title: newTaskTitle });
+      const response = await axios.post(API_URL, {
+        title: newTaskTitle,
+        description: "",
+      });
       setTasks([...tasks, response.data]);
       setNewTaskTitle("");
     } catch (err) {
@@ -49,11 +54,18 @@ function App() {
     }
   };
 
+  const handleUpdateTask = (updatedTask: Task) => {
+    setTasks((currentTasks) =>
+      currentTasks.map((task) =>
+        task.taskId === updatedTask.taskId ? updatedTask : task
+      )
+    );
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <h1>TaskMaster (Lokální verze)</h1>
-
+        <h1>TaskMaster Cloud</h1>
         <form onSubmit={handleAddTask} className="task-form">
           <input
             type="text"
@@ -63,62 +75,24 @@ function App() {
           />
           <button type="submit">Přidat úkol</button>
         </form>
-
-        <div className="task-list">
-          {loading && <p>Načítám úkoly...</p>}
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          {!loading && !error && (
-            <ul>
-              {tasks.map((task) => (
-                <li
-                  key={task.taskId}
-                  style={{
-                    textDecoration: task.isCompleted ? "line-through" : "none",
-                  }}
-                >
-                  <strong>{task.title}</strong>
-                  <button
-                    onClick={async () => {
-                      try {
-                        await axios.delete(`${API_URL}/${task.taskId}`);
-                        setTasks(tasks.filter((t) => t.taskId !== task.taskId));
-                      } catch (err) {
-                        setError("Nepodařilo se odstranit úkol.");
-                        console.error(err);
-                      }
-                    }}
-                  >
-                    Odstranit
-                  </button>
-                  <button
-                    onClick={async () => {
-                      try {
-                        const updatedTask = {
-                          ...task,
-                          isCompleted: !task.isCompleted,
-                        };
-                        await axios.put(`${API_URL}/${task.taskId}`, {
-                          updatedTask: updatedTask,
-                        });
-                        setTasks(
-                          tasks.map((t) =>
-                            t.taskId === task.taskId ? updatedTask : t
-                          )
-                        );
-                      } catch (err) {
-                        setError("Nepodařilo se aktualizovat stav úkolu.");
-                        console.error(err);
-                      }
-                    }}
-                  >
-                    {task.isCompleted ? "Dokončeno" : "Nedokončeno"}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
       </header>
+
+      <main>
+        {loading && <p>Načítám úkoly...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+
+        <div className="tasks-grid">
+          {!loading &&
+            !error &&
+            tasks.map((task) => (
+              <TaskCard
+                key={task.taskId}
+                task={task}
+                onUpdate={handleUpdateTask}
+              />
+            ))}
+        </div>
+      </main>
     </div>
   );
 }
